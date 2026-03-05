@@ -4,8 +4,11 @@
  * ═══════════════════════════════════════════════════════════════
  */
 
-// API Configuration
-const API_BASE_URL = "http://localhost:8000";
+// API Configuration - Use relative path for Docker deployment
+const API_BASE_URL =
+  window.location.hostname === "localhost"
+    ? "http://localhost:8000" // Local development
+    : "/api"; // Docker/Production (proxied through Nginx)
 
 // DOM Elements
 const elements = {
@@ -312,7 +315,9 @@ function addMessage(content, type, data = null) {
       <i class="fas ${type === "user" ? "fa-user" : "fa-robot"}"></i>
     </div>
     <div class="message-content">
-      <div class="message-bubble" data-text="${encodeURIComponent(content)}">${formatMessage(content)}</div>
+      <div class="message-bubble" data-text="${encodeURIComponent(
+        content
+      )}">${formatMessage(content)}</div>
       ${metaHTML}
     </div>
   `;
@@ -414,13 +419,12 @@ async function speakText(messageId, language) {
       speakBtn.classList.remove("playing");
       showToast("Audio playback error", "error");
     };
-
   } catch (error) {
     console.error("TTS error:", error);
     speakBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
     speakBtn.classList.remove("loading");
     showToast("Failed to generate audio. Trying browser TTS...", "error");
-    
+
     // Fallback to browser TTS
     speakWithBrowserTTS(text, language);
   }
@@ -433,9 +437,9 @@ function stopSpeaking() {
     currentAudio = null;
   }
   isSpeaking = false;
-  
+
   // Reset all speak buttons
-  document.querySelectorAll(".speak-btn.playing").forEach(btn => {
+  document.querySelectorAll(".speak-btn.playing").forEach((btn) => {
     btn.innerHTML = '<i class="fas fa-volume-up"></i>';
     btn.classList.remove("playing");
   });
@@ -452,7 +456,7 @@ function speakWithBrowserTTS(text, language) {
   window.speechSynthesis.cancel();
 
   const utterance = new SpeechSynthesisUtterance(text);
-  
+
   // Map language codes to browser TTS voices
   const langMap = {
     en: "en-US",
@@ -619,7 +623,8 @@ function updateSourcesPanel(data) {
   elements.confidenceBar.style.width = confidence + "%";
   elements.confidenceValue.textContent = confidence + "%";
 
-  elements.verificationBadge.className = "verification-badge " + (data.verified ? "verified" : "unverified");
+  elements.verificationBadge.className =
+    "verification-badge " + (data.verified ? "verified" : "unverified");
   elements.verificationBadge.innerHTML = data.verified
     ? '<i class="fas fa-circle-check"></i> Verified'
     : '<i class="fas fa-triangle-exclamation"></i> Needs Review';
@@ -638,7 +643,7 @@ function updateSourcesPanel(data) {
         } else {
           sourceName = "Unknown Source";
         }
-        
+
         return `
           <div class="source-item">
             <div class="source-icon"><i class="fas fa-file-lines"></i></div>
@@ -651,7 +656,8 @@ function updateSourcesPanel(data) {
       })
       .join("");
   } else {
-    elements.sourcesList.innerHTML = '<p class="no-sources">No specific sources referenced.</p>';
+    elements.sourcesList.innerHTML =
+      '<p class="no-sources">No specific sources referenced.</p>';
   }
 
   // Update context preview

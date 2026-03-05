@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+.venv/
+venv/
+ENV/
+env/
+
+# Testing
+.pytest_cache/
+test_*.py
+TEST_*.py
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Documentation
+README.md
+*.md
+docs/
+
+# Audio cache (will be created in container)
+audio_cache/*
+
+# Logs
+*.log
+
+# Temporary files
+temp_*.wav
+temp_*.mp3
+*.tmp
