@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+langchain
+llama-index
+sentence-transformers
+faiss-cpu
+transformers
+torch
+langdetect
+whisper
+pydantic
