@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TrustGov AI - Government Schemes Assistant</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="logo">
+          <div class="logo-icon">
+            <i class="fas fa-shield-halved"></i>
+          </div>
+          <span class="logo-text">TrustGov AI</span>
+        </div>
+
+        <nav class="nav-menu">
+          <a href="#" class="nav-item active">
+            <i class="fas fa-message"></i>
+            <span>New Chat</span>
+          </a>
+          <a href="#" class="nav-item">
+            <i class="fas fa-clock-rotate-left"></i>
+            <span>History</span>
+          </a>
+        </nav>
+
+        <div class="schemes-section">
+          <h3>Government Schemes</h3>
+          <div class="scheme-tags">
+            <span class="scheme-tag" data-scheme="PM Kisan">PM Kisan</span>
+            <span class="scheme-tag" data-scheme="Ayushman Bharat"
+              >Ayushman Bharat</span
+            >
+            <span class="scheme-tag" data-scheme="PM Awas">PM Awas</span>
+            <span class="scheme-tag" data-scheme="Ujjwala">Ujjwala</span>
+            <span class="scheme-tag" data-scheme="Mudra">Mudra Loan</span>
+          </div>
+        </div>
+
+        <div class="sidebar-footer">
+          <div class="status-indicator">
+            <span class="status-dot online"></span>
+            <span>System Online</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Chat Area -->
+      <main class="chat-main">
+        <!-- Header -->
+        <header class="chat-header">
+          <div class="header-left">
+            <button class="menu-toggle" id="menuToggle">
+              <i class="fas fa-bars"></i>
+            </button>
+            <h1>Government Schemes Assistant</h1>
+          </div>
+          <div class="header-right">
+            <div class="language-badge" id="languageBadge">
+              <i class="fas fa-globe"></i>
+              <span id="detectedLanguage">--</span>
+            </div>
+          </div>
+        </header>
+
+        <!-- Chat Messages -->
+        <div class="chat-messages" id="chatMessages">
+          <!-- Welcome Message -->
+          <div class="welcome-container" id="welcomeContainer">
+            <div class="welcome-icon">
+              <i class="fas fa-building-columns"></i>
+            </div>
+            <h2>Welcome to TrustGov AI</h2>
+            <p>Your trusted assistant for Indian government welfare schemes</p>
+
+            <div class="quick-prompts">
+              <button
+                class="quick-prompt"
+                data-prompt="What is PM Kisan Samman Nidhi?"
+              >
+                <i class="fas fa-seedling"></i>
+                <span>PM Kisan benefits</span>
+              </button>
+              <button
+                class="quick-prompt"
+                data-prompt="Who is eligible for Ayushman Bharat?"
+              >
+                <i class="fas fa-heart-pulse"></i>
+                <span>Ayushman eligibility</span>
+              </button>
+              <button
+                class="quick-prompt"
+                data-prompt="How to apply for PM Awas Yojana?"
+              >
+                <i class="fas fa-house"></i>
+                <span>PM Awas application</span>
+              </button>
+              <button
+                class="quick-prompt"
+                data-prompt="What is Mudra loan scheme?"
+              >
+                <i class="fas fa-hand-holding-dollar"></i>
+                <span>Mudra loan details</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="chat-input-container">
+          <div class="input-wrapper">
+            <textarea
+              id="messageInput"
+              placeholder="Ask about government schemes..."
+              rows="1"
+              autofocus
+            ></textarea>
+            <div class="input-actions">
+              <button class="mic-button" id="micButton" title="Voice input">
+                <i class="fas fa-microphone"></i>
+              </button>
+              <button class="send-button" id="sendButton" title="Send message">
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </div>
+          </div>
+          <div class="recording-indicator" id="recordingIndicator">
+            <div class="recording-pulse"></div>
+            <span>Listening...</span>
+            <button class="stop-recording" id="stopRecording">
+              <i class="fas fa-stop"></i>
+            </button>
+          </div>
+          <p class="input-hint">
+            Press Enter to send • Shift+Enter for new line
+          </p>
+        </div>
+      </main>
+
+      <!-- Sources Panel -->
+      <aside class="sources-panel" id="sourcesPanel">
+        <div class="panel-header">
+          <h3><i class="fas fa-book-open"></i> Sources & Verification</h3>
+          <button class="close-panel" id="closePanel">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <div class="panel-content">
+          <!-- Confidence Score -->
+          <div class="confidence-section">
+            <h4>Confidence Score</h4>
+            <div class="confidence-meter">
+              <div class="confidence-bar" id="confidenceBar"></div>
+            </div>
+            <div class="confidence-details">
+              <span class="confidence-value" id="confidenceValue">--%</span>
+              <span class="verification-badge" id="verificationBadge">
+                <i class="fas fa-circle-question"></i> Pending
+              </span>
+            </div>
+          </div>
+
+          <!-- Sources List -->
+          <div class="sources-section">
+            <h4>Referenced Sources</h4>
+            <div class="sources-list" id="sourcesList">
+              <p class="no-sources">
+                No sources yet. Ask a question to see relevant sources.
+              </p>
+            </div>
+          </div>
+
+          <!-- Context Preview -->
+          <div class="context-section">
+            <h4>Context Used</h4>
+            <div class="context-preview" id="contextPreview">
+              <p class="no-context">
+                Context will appear here after your query.
+              </p>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+      <i class="fas fa-info-circle"></i>
+      <span id="toastMessage"></span>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
+

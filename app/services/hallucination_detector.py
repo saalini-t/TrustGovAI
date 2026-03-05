@@ -1,20 +1,12 @@
-from sentence_transformers import SentenceTransformer
+from app.utils.shared_models import get_embedding_model
 import numpy as np
-
-_model = None
-
-def _load_model():
-    global _model
-    if _model is None:
-        _model = SentenceTransformer("all-MiniLM-L6-v2")
-    return _model
 
 def detect_hallucination(answer, context):
     """Simple cosine similarity-based hallucination detection"""
-    _load_model()
+    model = get_embedding_model()
     
-    emb1 = _model.encode([answer])
-    emb2 = _model.encode([context])
+    emb1 = model.encode([answer])
+    emb2 = model.encode([context])
     
     # Cosine similarity
     similarity = np.dot(emb1[0], emb2[0]) / (np.linalg.norm(emb1[0]) * np.linalg.norm(emb2[0]))
